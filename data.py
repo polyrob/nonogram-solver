@@ -10,7 +10,6 @@ class Data:
         self.row_rules = self.get_rules_from_file(rowfile)
         self.col_rules = self.get_rules_from_file(colfile)
 
-
     def get_rules_from_file(self, filename):
         rules_list = []
         with open(filename, "r") as ins:
@@ -25,6 +24,12 @@ class Data:
                         linearray.append(int(val))
                 rules_list.append(linearray)
         return rules_list
+
+    def get_row_rules(self):
+        return self.row_rules
+
+    def get_col_rules(self):
+        return self.col_rules
 
 
 if __name__ == '__main__':

@@ -22,11 +22,12 @@ class Board:
                         linearray.append(True)
                 self.rows.append(linearray)
 
+
     def print(self):
         for row in self.rows:
             charrow = ""
             for cell in row:
-                if cell == False:
+                if not cell:
                     charrow += WHITE_PRINT
                 else:
                     charrow += BLACK_PRINT
@@ -44,11 +45,13 @@ class Board:
     def set_black(self, row, col):
         self.rows[row - 1][col - 1] = True
 
+    def is_solved(self, series, totalblk):
+        pass
+
 
 if __name__ == '__main__':
     b = Board('starter_board.txt')
     # b.set_black(4,13)
-
     b.print()
 
     print('Row 4 is', b.get_row(4))
