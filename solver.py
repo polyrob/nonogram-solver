@@ -46,7 +46,7 @@ def generate_possibles_from_spaces(rule, spaceplacement):
 def determine_possibles(rules):
     possibles = []
     for index in range(25):
-        rule = d.get_row_rules()[index]
+        rule = rules[index]
         spacebuckets = len(rule) + 1
         totalspaces = 25 - sum(rule)
         playspaces = totalspaces - (len(rule) - 1)
@@ -90,6 +90,8 @@ def filter_possibles(b):
 def apply_certainties(b):
     total_certainties_applied = 0
 
+    # print('board before row work')
+    # b.print()
     # work rows
     for rowindex, row in enumerate(b.rows):
         if rowindex in b.solvedrows: continue
@@ -102,6 +104,8 @@ def apply_certainties(b):
                 b.cols[cellindex][rowindex] = True
                 total_certainties_applied += 1
 
+    # print('board before col work')
+    # b.print()
     # work cols
     for colindex, col in enumerate(b.cols):
         if colindex in b.solvedcols: continue
@@ -114,6 +118,8 @@ def apply_certainties(b):
                 b.rows[cellindex][colindex] = True
                 total_certainties_applied += 1
 
+    # print('board after all row/col work')
+    # b.print()
     print('Total certainties applied: %d' % total_certainties_applied)
     return total_certainties_applied
 
