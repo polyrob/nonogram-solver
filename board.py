@@ -10,6 +10,13 @@ BLACK_PRINT = '█'
 class Board:
     """ Board Class """
     rows = []
+    cols = []
+
+    possiblerows = []
+    possiblecols = []
+
+    solvedrows = []
+    solvedcols = []
 
     def __init__(self, filename):
         with open(filename, "r") as ins:
@@ -21,6 +28,12 @@ class Board:
                     elif char == BLACK_1:
                         linearray.append(True)
                 self.rows.append(linearray)
+        for rowindex, row in enumerate(self.rows):
+            column = []
+            for colindex in range(25):
+                column.append(self.rows[colindex][rowindex])
+            self.cols.append(column)
+
 
 
     def print(self):
@@ -33,15 +46,6 @@ class Board:
                     charrow += BLACK_PRINT
             print(charrow)
 
-    def get_row(self, index):
-        return self.rows[index - 1]
-
-    def get_col(self, index):
-        arr = []
-        for row in self.rows:
-            arr.append(row[index - 1])
-        return arr
-
     def set_black(self, row, col):
         self.rows[row - 1][col - 1] = True
 
@@ -49,10 +53,9 @@ class Board:
         pass
 
 
+
+
 if __name__ == '__main__':
     b = Board('starter_board.txt')
     # b.set_black(4,13)
     b.print()
-
-    print('Row 4 is', b.get_row(4))
-    print('Col 4 is', b.get_col(4))
