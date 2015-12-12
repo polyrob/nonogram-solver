@@ -133,15 +133,16 @@ def all_true(inputlist, index):
 if __name__ == '__main__':
     # initialize objects
     d = Data("rowdata.txt", "coldata.txt")
-    b = Board('starter_board.txt')
+    # b = Board('starter_board.txt')
+    b = Board('starter_board_hunch.txt')
 
     # create lists of all possible configurations for rows/columns
     generate_all_possible(b, d)
     print('Generated all possibles from rules in %.3f sec' % s.get_elapsed())
 
     # start game loop
-    solved = False
-    while not solved:
+    solved_this_round = -1  # start with non-zero
+    while solved_this_round != 0:
         b.print()
         s.iterate()
         filter_possibles(b)
@@ -149,10 +150,14 @@ if __name__ == '__main__':
 
         # apply_knowns(b)
 
-
-
-
     # complete
-    print('===== SUCCESS!! =====')
+    print('===== COMPLETE =====')
     b.print()
+    for index, possibles in enumerate(b.possiblerows):
+        if len(possibles) > 1:
+            print("Unsolved for row %d, number of possibilities: %d" % (index, len(possibles)))
+    for index, possibles in enumerate(b.possiblecols):
+        if len(possibles) > 1:
+            print("Unsolved for column %d, number of possibilities: %d" % (index, len(possibles)))
+
     s.print_summary()
