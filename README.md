@@ -3,6 +3,7 @@ Python nonogram solver. Written for puzzle from the UK’s intelligence agency, 
 
 
 == COMPLETE ==
+
 ███████░███░░░█░█░███████
 █░░░░░█░██░██░░░░░█░░░░░█
 █░███░█░░░░░███░█░█░███░█
@@ -28,5 +29,6 @@ Python nonogram solver. Written for puzzle from the UK’s intelligence agency, 
 █░███░█░█░░██████░██████░
 █░░░░░█░░██░░░░░░█░█░██░░
 ███████░██░░░█░██░░░█████
+
 *=*=*=* SUCCESS *=*=*=*
 Iteration 8, Time elapsed (sec): 1.796
