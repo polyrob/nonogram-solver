@@ -99,10 +99,17 @@ def apply_certainties(b):
             # don't need to process if we've already set that cell black
             if cell is True: continue
             prows = b.possiblerows[rowindex]
-            if all_true(prows, cellindex):
+
+            if all_of_value(True, prows, cellindex):
                 b.rows[rowindex][cellindex] = True
                 b.cols[cellindex][rowindex] = True
                 total_certainties_applied += 1
+
+            if all_of_value(False, prows, cellindex): #eg row 24, col 18
+                # check column
+                b.possiblecols[cellindex] = [pcols for pcols in b.possiblecols[cellindex] if pcols[rowindex] is False]
+
+
 
     # print('board before col work')
     # b.print()
@@ -113,28 +120,30 @@ def apply_certainties(b):
             # don't need to process if we've already set that cell black
             if cell is True: continue
             pcols = b.possiblecols[colindex]
-            if all_true(pcols, cellindex):
+            if all_of_value(True, pcols, cellindex):
                 b.cols[colindex][cellindex] = True
                 b.rows[cellindex][colindex] = True
                 total_certainties_applied += 1
+            if all_of_value(False, prows, cellindex):
+                # check row
+                pass
+                # b.possiblerows[cellindex] = [prows for prows in b.possiblerows[cellindex] if prows[rowindex] is False]
 
-    # print('board after all row/col work')
-    # b.print()
+
     print('Total certainties applied: %d' % total_certainties_applied)
     return total_certainties_applied
 
 
-def all_true(inputlist, index):
+def all_of_value(value, inputlist, index):
     for item in inputlist:
-        if item[index] is False: return False
+        if item[index] is not value: return False
     return True
 
 
 if __name__ == '__main__':
     # initialize objects
     d = Data("rowdata.txt", "coldata.txt")
-    # b = Board('starter_board.txt')
-    b = Board('starter_board_hunch.txt')
+    b = Board('starter_board.txt')
 
     # create lists of all possible configurations for rows/columns
     generate_all_possible(b, d)
@@ -148,9 +157,7 @@ if __name__ == '__main__':
         filter_possibles(b)
         solved_this_round = apply_certainties(b)
 
-        # apply_knowns(b)
 
-    # complete
     print('===== COMPLETE =====')
     b.print()
     for index, possibles in enumerate(b.possiblerows):
