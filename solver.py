@@ -105,7 +105,7 @@ def apply_certainties(b):
                 b.cols[cellindex][rowindex] = True
                 total_certainties_applied += 1
 
-            if all_of_value(False, prows, cellindex): #eg row 24, col 18
+            if all_of_value(False, prows, cellindex):  # eg row 24, col 18
                 # check column
                 b.possiblecols[cellindex] = [pcols for pcols in b.possiblecols[cellindex] if pcols[rowindex] is False]
 
@@ -128,7 +128,6 @@ def apply_certainties(b):
                 # check row
                 pass
                 # b.possiblerows[cellindex] = [prows for prows in b.possiblerows[cellindex] if prows[rowindex] is False]
-
 
     print('Total certainties applied: %d' % total_certainties_applied)
     return total_certainties_applied
@@ -157,14 +156,18 @@ if __name__ == '__main__':
         filter_possibles(b)
         solved_this_round = apply_certainties(b)
 
-
-    print('===== COMPLETE =====')
-    b.print()
+    print('== COMPLETE ==')
+    count = 0
     for index, possibles in enumerate(b.possiblerows):
         if len(possibles) > 1:
+            count += 1
             print("Unsolved for row %d, number of possibilities: %d" % (index, len(possibles)))
     for index, possibles in enumerate(b.possiblecols):
         if len(possibles) > 1:
+            count += 1
             print("Unsolved for column %d, number of possibilities: %d" % (index, len(possibles)))
 
+    b.print()
+    if count == 0:
+        print('*=*=*=* SUCCESS *=*=*=*')
     s.print_summary()
